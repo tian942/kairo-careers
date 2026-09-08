@@ -612,7 +612,14 @@ p:last-child { margin-bottom: 0; }
   .hero { padding: 16px 20px 40px; }
   .hero h1 { font-size: clamp(1.3rem, 6vw, 1.7rem); margin: 10px 0 14px; }
   .badge { padding: 7px 14px; font-size: 0.62rem; }
-  .hdr { height: 56px; }
+  .hdr { height: 56px; padding: 0 16px; }
+}
+@media (max-width: 380px) {
+  .hdr { padding: 0 12px; }
+  .logo { gap: 7px; }
+  .logo__svg { width: 30px; height: 27px; }
+  .logo__name { font-size: 1.25rem; }
+  .hdr .btn { padding: 9px 14px; font-size: 0.68rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .badge__dot { animation: none; }
