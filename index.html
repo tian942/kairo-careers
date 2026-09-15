@@ -842,5 +842,31 @@ p:last-child { margin-bottom: 0; }
     hdr.classList.toggle('is-scrolled', window.scrollY > 56);
   }, { passive: true });
 </script>
+
+<script>
+  // Carry traffic source into the "Source" field of the Sales Role Position
+  // Application form (entry.555456121), which the PAS V1 sheet already reads.
+  // Google Forms silently drops unknown query params, so plain ?utm_source=
+  // on this page's URL never reaches the sheet on its own — instead we read
+  // it here and rewrite every "Apply Now" link to a prefilled form URL.
+  (function () {
+    const FORM_BASE = "https://docs.google.com/forms/d/e/1FAIpQLSc4Sab6BXfMgUw6Vx20l0V_d87TyhaXwWsUkTPd5YvaJsyO1Q/viewform";
+    const SOURCE_ENTRY = "entry.555456121";
+
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source');
+    const utmCampaign = params.get('utm_campaign');
+
+    const source = utmSource
+      ? (utmCampaign ? `${utmSource}/${utmCampaign}` : utmSource)
+      : 'kairo-careers-direct';
+
+    const prefillUrl = `${FORM_BASE}?usp=pp_url&${SOURCE_ENTRY}=${encodeURIComponent(source)}`;
+
+    document.querySelectorAll('a[href*="forms.gle/FgdgStSmDG7vA6xP9"]').forEach((a) => {
+      a.href = prefillUrl;
+    });
+  })();
+</script>
 </body>
 </html>
